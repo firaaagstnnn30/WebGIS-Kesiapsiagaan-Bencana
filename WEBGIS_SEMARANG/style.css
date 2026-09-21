@@ -1,0 +1,842 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f1f5f9;
+    color: #172033;
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 125px;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #173d69,
+        #102f54
+    );
+
+    color: white;
+
+    z-index: 2000;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.sidebar-logo {
+    height: 95px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+
+.logo-icon {
+    font-size: 30px;
+}
+
+
+.sidebar-logo strong {
+    display: block;
+    font-size: 14px;
+}
+
+
+.sidebar-logo span {
+    display: block;
+    font-size: 9px;
+    opacity: 0.8;
+}
+
+
+.menu {
+    padding-top: 20px;
+}
+
+
+.menu-item {
+    width: 100%;
+    height: 52px;
+
+    border: none;
+    background: transparent;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 0 15px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    text-align: left;
+}
+
+
+.menu-item span:first-child {
+    width: 20px;
+    text-align: center;
+}
+
+
+.menu-item:hover,
+.menu-item.active {
+    background: #1877d2;
+}
+
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    padding: 20px 10px;
+
+    text-align: center;
+}
+
+
+.city-tag {
+    font-size: 11px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    opacity: 0.85;
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.main-content {
+    margin-left: 125px;
+
+    min-height: 100vh;
+
+    padding: 0 15px 25px;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.top-header {
+    min-height: 105px;
+
+    background: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+
+.header-title {
+    text-align: center;
+}
+
+
+.header-title h1 {
+    margin: 0;
+
+    font-size: 27px;
+
+    color: #132d4d;
+
+    letter-spacing: 0.5px;
+}
+
+
+.header-title h2 {
+    margin: 3px 0 3px;
+
+    font-size: 18px;
+
+    letter-spacing: 5px;
+
+    color: #1e293b;
+}
+
+
+.header-title p {
+    margin: 0;
+
+    font-size: 12px;
+
+    color: #64748b;
+}
+
+
+.header-date {
+    position: absolute;
+
+    right: 20px;
+    top: 25px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    font-size: 12px;
+
+    color: #334155;
+}
+
+
+.header-date span {
+    margin-top: 5px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   STATISTIC CARDS
+========================================= */
+
+.stat-cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr)
+        1.4fr;
+
+    gap: 12px;
+
+    margin: 12px 0;
+}
+
+
+.stat-card,
+.info-card {
+    background: white;
+
+    border-radius: 10px;
+
+    min-height: 78px;
+
+    padding: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 27px;
+}
+
+
+.stat-icon.rumah-sakit {
+    background: #fee2e2;
+}
+
+
+.stat-icon.puskesmas {
+    background: #dcfce7;
+}
+
+
+.stat-icon.damkar {
+    background: #fef3c7;
+}
+
+
+.stat-icon.polisi {
+    background: #dbeafe;
+}
+
+
+.stat-card span {
+    display: block;
+
+    font-size: 13px;
+
+    color: #475569;
+}
+
+
+.stat-card strong {
+    font-size: 27px;
+
+    display: inline-block;
+
+    margin-top: 3px;
+
+    color: #172033;
+}
+
+
+.stat-card small {
+    color: #64748b;
+
+    margin-left: 4px;
+}
+
+
+.info-card {
+    background: linear-gradient(
+        110deg,
+        #e7f1fb,
+        #f1f7fd
+    );
+}
+
+
+.info-icon {
+    font-size: 35px;
+}
+
+
+.info-card strong,
+.info-card span,
+.info-card em {
+    display: block;
+}
+
+
+.info-card strong {
+    font-size: 14px;
+}
+
+
+.info-card span {
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-top: 3px;
+}
+
+
+.info-card em {
+    font-size: 12px;
+
+    margin-top: 4px;
+
+    color: #475569;
+}
+
+
+/* =========================================
+   MAP SECTION
+========================================= */
+
+.map-section {
+    display: grid;
+
+    grid-template-columns: 1fr 310px;
+
+    gap: 12px;
+
+    min-height: 570px;
+}
+
+
+.map-container {
+    position: relative;
+
+    background: white;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+
+#map {
+    width: 100%;
+
+    height: 570px;
+}
+
+
+/* =========================================
+   RIGHT PANEL
+========================================= */
+
+.right-panel {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+.panel-box {
+    background: white;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+
+.panel-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 13px;
+
+    font-size: 15px;
+}
+
+
+.panel-box label {
+    display: block;
+
+    margin: 10px 0;
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+
+.panel-box input {
+    margin-right: 7px;
+}
+
+
+.legend-section {
+    margin-top: 12px;
+
+    border-top: 1px solid #e2e8f0;
+
+    padding-top: 10px;
+}
+
+
+.legend-section > strong {
+    font-size: 12px;
+
+    color: #334155;
+}
+
+
+.legend-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 8px;
+
+    font-size: 12px;
+}
+
+
+.legend-color {
+    width: 24px;
+    height: 18px;
+
+    display: inline-block;
+
+    border-radius: 3px;
+}
+
+
+.tinggi {
+    background: #55b96a;
+}
+
+
+.sedang {
+    background: #f7d84b;
+}
+
+
+.rendah {
+    background: #ef6464;
+}
+
+
+.legend-road {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 9px;
+
+    font-size: 12px;
+}
+
+
+.legend-road span {
+    width: 24px;
+
+    height: 3px;
+
+    background: #e58b20;
+
+    display: inline-block;
+}
+
+
+.information {
+    background: #e8f4ff;
+}
+
+
+.information p {
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    margin: 0;
+
+    color: #334155;
+}
+
+
+/* =========================================
+   LEAFLET POPUP
+========================================= */
+
+.leaflet-popup-content {
+    min-width: 220px;
+}
+
+
+.popup-title {
+    font-size: 16px;
+
+    font-weight: bold;
+
+    color: #173d69;
+
+    margin-bottom: 10px;
+}
+
+
+.popup-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 5px 0;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    font-size: 12px;
+}
+
+
+.popup-index {
+    margin-top: 12px;
+
+    padding: 10px;
+
+    border-radius: 7px;
+
+    background: #eff6ff;
+}
+
+
+.popup-class {
+    display: inline-block;
+
+    margin-top: 5px;
+
+    padding: 4px 9px;
+
+    border-radius: 5px;
+
+    color: white;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   BOTTOM DASHBOARD
+========================================= */
+
+.dashboard-bottom {
+    display: grid;
+
+    grid-template-columns:
+        1.2fr
+        1.2fr
+        0.8fr;
+
+    gap: 12px;
+
+    margin-top: 12px;
+}
+
+
+.chart-card,
+.summary-card {
+    background: white;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    min-height: 250px;
+
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+
+.chart-card h3,
+.summary-card h3 {
+    margin: 0 0 12px;
+
+    font-size: 15px;
+
+    color: #1e293b;
+}
+
+
+.chart-card canvas {
+    max-height: 195px;
+}
+
+
+.category-chart {
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+.category-chart canvas {
+    width: 170px !important;
+
+    height: 170px !important;
+}
+
+
+.category-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+.category-info div {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 12px;
+}
+
+
+.dot {
+    width: 12px;
+    height: 12px;
+
+    border-radius: 3px;
+
+    display: inline-block;
+}
+
+
+.category-info strong {
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 13px;
+}
+
+
+.summary-card {
+    min-height: 250px;
+}
+
+
+.summary-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    font-size: 13px;
+}
+
+
+.summary-row strong {
+    color: #173d69;
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1200px) {
+
+    .stat-cards {
+        grid-template-columns:
+            repeat(4, 1fr);
+    }
+
+    .info-card {
+        display: none;
+    }
+
+    .map-section {
+        grid-template-columns: 1fr 270px;
+    }
+
+}
+
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 65px;
+    }
+
+    .sidebar-logo strong,
+    .sidebar-logo span,
+    .menu-item span:last-child,
+    .city-tag {
+        display: none;
+    }
+
+    .menu-item {
+        justify-content: center;
+
+        padding: 0;
+    }
+
+    .main-content {
+        margin-left: 65px;
+    }
+
+    .stat-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .map-section {
+        grid-template-columns: 1fr;
+    }
+
+    .right-panel {
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-bottom {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .header-title h1 {
+        font-size: 17px;
+    }
+
+    .header-title h2 {
+        font-size: 14px;
+    }
+
+    .header-title p {
+        display: none;
+    }
+
+    .header-date {
+        display: none;
+    }
+
+    .stat-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .right-panel {
+        grid-template-columns: 1fr;
+    }
+
+}
