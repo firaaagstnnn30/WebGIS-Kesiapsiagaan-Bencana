@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WebGIS Aksesibilitas Fasilitas Darurat Kota Semarang</title>
+
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- ===================================== -->
+    <!-- SIDEBAR -->
+    <!-- ===================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <div class="logo-icon">🏙️</div>
+
+            <div>
+                <strong>WEBGIS</strong>
+                <span>SEMARANG</span>
+            </div>
+        </div>
+
+
+        <nav class="menu">
+
+            <button class="menu-item active">
+                <span>⌂</span>
+                <span>Beranda</span>
+            </button>
+
+            <button class="menu-item" onclick="fokusPeta()">
+                <span>🗺️</span>
+                <span>Peta</span>
+            </button>
+
+            <button class="menu-item" onclick="bukaAnalisis()">
+                <span>📊</span>
+                <span>Analisis</span>
+            </button>
+
+            <button class="menu-item" onclick="bukaData()">
+                <span>▣</span>
+                <span>Data</span>
+            </button>
+
+            <button class="menu-item" onclick="bukaTentang()">
+                <span>ⓘ</span>
+                <span>Tentang</span>
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="city-tag">
+                <strong>Semarang</strong>
+                <span>Kota Tangguh</span>
+                <span>Bencana</span>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ===================================== -->
+    <!-- MAIN CONTENT -->
+    <!-- ===================================== -->
+
+    <main class="main-content">
+
+
+        <!-- ================================= -->
+        <!-- HEADER -->
+        <!-- ================================= -->
+
+        <header class="top-header">
+
+            <div class="header-title">
+
+                <h1>
+                    WEBGIS AKSESIBILITAS FASILITAS DARURAT
+                </h1>
+
+                <h2>
+                    KOTA SEMARANG
+                </h2>
+
+                <p>
+                    Informasi Ketersediaan dan Aksesibilitas Fasilitas Darurat
+                    untuk Mendukung Kesiapsiagaan Bencana Perkotaan
+                </p>
+
+            </div>
+
+
+            <div class="header-date">
+
+                <strong id="tanggal"></strong>
+
+                <span id="jam"></span>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================================= -->
+        <!-- STATISTIC CARDS -->
+        <!-- ================================= -->
+
+        <section class="stat-cards">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon rumah-sakit">
+                    🏥
+                </div>
+
+                <div>
+                    <span>Rumah Sakit</span>
+                    <strong id="jumlah-rs">0</strong>
+                    <small>unit</small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon puskesmas">
+                    🏥
+                </div>
+
+                <div>
+                    <span>Puskesmas</span>
+                    <strong id="jumlah-puskesmas">0</strong>
+                    <small>unit</small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon damkar">
+                    🚒
+                </div>
+
+                <div>
+                    <span>Pemadam Kebakaran</span>
+                    <strong id="jumlah-damkar">0</strong>
+                    <small>unit</small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon polisi">
+                    👮
+                </div>
+
+                <div>
+                    <span>Kantor Polisi</span>
+                    <strong id="jumlah-polisi">0</strong>
+                    <small>unit</small>
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    🏙️
+                </div>
+
+                <div>
+                    <strong>
+                        Bersama Membangun
+                    </strong>
+
+                    <span>
+                        Semarang yang Lebih Tangguh
+                    </span>
+
+                    <em>
+                        "Siap, Tanggap, Selamat"
+                    </em>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- MAP AREA -->
+        <!-- ================================= -->
+
+        <section class="map-section">
+
+
+            <div class="map-container">
+
+                <div id="map"></div>
+
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- RIGHT PANEL -->
+            <!-- ============================= -->
+
+            <div class="right-panel">
+
+
+                <!-- LAYER PETA -->
+
+                <div class="panel-box">
+
+                    <div class="panel-title">
+                        <span>🗺️</span>
+                        <strong>Layer Peta</strong>
+                    </div>
+
+
+                    <label>
+                        <input type="checkbox" id="toggle-admin" checked>
+                        Batas Kecamatan
+                    </label>
+
+
+                    <label>
+                        <input type="checkbox" id="toggle-index" checked>
+                        Indeks Aksesibilitas
+                    </label>
+
+
+                    <label>
+                        <input type="checkbox" id="toggle-rs" checked>
+                        🏥 Rumah Sakit
+                    </label>
+
+
+                    <label>
+                        <input type="checkbox" id="toggle-puskesmas" checked>
+                        🏥 Puskesmas
+                    </label>
+
+
+                    <label>
+                        <input type="checkbox" id="toggle-damkar" checked>
+                        🚒 Pemadam Kebakaran
+                    </label>
+
+
+                    <label>
+                        <input type="checkbox" id="toggle-polisi" checked>
+                        👮 Kantor Polisi
+                    </label>
+
+
+                    <label>
+                        <input type="checkbox" id="toggle-jalan">
+                        Jaringan Jalan
+                    </label>
+
+                </div>
+
+
+                <!-- LEGENDA -->
+
+                <div class="panel-box">
+
+                    <div class="panel-title">
+                        <span>▣</span>
+                        <strong>Legenda</strong>
+                    </div>
+
+
+                    <div class="legend-section">
+
+                        <strong>Fasilitas</strong>
+
+                        <div class="legend-item">
+                            <span>🏥</span>
+                            Rumah Sakit
+                        </div>
+
+                        <div class="legend-item">
+                            <span>🏥</span>
+                            Puskesmas
+                        </div>
+
+                        <div class="legend-item">
+                            <span>🚒</span>
+                            Pemadam Kebakaran
+                        </div>
+
+                        <div class="legend-item">
+                            <span>👮</span>
+                            Kantor Polisi
+                        </div>
+
+                        <div class="legend-road">
+                            <span></span>
+                            Jaringan Jalan
+                        </div>
+
+                    </div>
+
+
+                    <div class="legend-section">
+
+                        <strong>Indeks Aksesibilitas</strong>
+
+                        <div class="legend-item">
+                            <i class="legend-color tinggi"></i>
+                            Tinggi
+                        </div>
+
+                        <div class="legend-item">
+                            <i class="legend-color sedang"></i>
+                            Sedang
+                        </div>
+
+                        <div class="legend-item">
+                            <i class="legend-color rendah"></i>
+                            Rendah
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INFORMASI -->
+
+                <div class="panel-box information">
+
+                    <div class="panel-title">
+                        <span>ⓘ</span>
+                        <strong>Informasi</strong>
+                    </div>
+
+                    <p>
+                        Peta ini menampilkan ketersediaan dan
+                        aksesibilitas fasilitas darurat di Kota Semarang
+                        sebagai bagian dari upaya mendukung
+                        kesiapsiagaan bencana perkotaan.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- BOTTOM DASHBOARD -->
+        <!-- ================================= -->
+
+        <section class="dashboard-bottom">
+
+
+            <!-- GRAFIK JUMLAH FASILITAS -->
+
+            <div class="chart-card">
+
+                <h3>
+                    Jumlah Fasilitas Darurat di Kota Semarang
+                </h3>
+
+                <canvas id="facilityChart"></canvas>
+
+            </div>
+
+
+            <!-- GRAFIK KATEGORI -->
+
+            <div class="chart-card">
+
+                <h3>
+                    Persentase Kategori Kecamatan
+                </h3>
+
+                <div class="category-chart">
+
+                    <canvas id="categoryChart"></canvas>
+
+                    <div class="category-info">
+
+                        <div>
+                            <i class="dot tinggi"></i>
+                            <span>
+                                Tinggi
+                                <strong id="persen-tinggi">0</strong>
+                            </span>
+                        </div>
+
+                        <div>
+                            <i class="dot sedang"></i>
+                            <span>
+                                Sedang
+                                <strong id="persen-sedang">0</strong>
+                            </span>
+                        </div>
+
+                        <div>
+                            <i class="dot rendah"></i>
+                            <span>
+                                Rendah
+                                <strong id="persen-rendah">0</strong>
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- INFO HASIL -->
+
+            <div class="summary-card">
+
+                <h3>
+                    Ringkasan Analisis
+                </h3>
+
+                <div class="summary-row">
+                    <span>Jumlah Kecamatan</span>
+                    <strong id="jumlah-kecamatan">16</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Kategori Tinggi</span>
+                    <strong id="total-tinggi">0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Kategori Sedang</span>
+                    <strong id="total-sedang">0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Kategori Rendah</span>
+                    <strong id="total-rendah">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- Leaflet JS -->
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
