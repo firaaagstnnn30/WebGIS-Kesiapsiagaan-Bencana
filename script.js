@@ -138,7 +138,7 @@ fetch('data/administrasi.geojson')
 // HASIL ANALISIS AKSESIBILITAS
 // ========================================
 
-fetch('data/kecamatan_aksesibilitas.geojson')
+fetch('output/kecamatan_aksesibilitas.geojson')
 
     .then(response => response.json())
 
