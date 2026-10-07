@@ -26,17 +26,33 @@ print("========================================")
 
 admin = gpd.read_file(ADMIN_FILE)
 
-# Baca hasil analisis yang tersedia
-if os.path.exists(FINAL_FILE):
-    hasil_df = pd.read_csv(FINAL_FILE)
-    print("Membaca dari indeks_final_evaluasi.csv")
-else:
-    hasil_df = pd.read_csv(HASIL_AKSES_FILE)
-    if os.path.exists(EVALUASI_FILE):
-        eval_df = pd.read_csv(EVALUASI_FILE)
-        hasil_df = hasil_df.merge(eval_df, on="GID_3", how="left")
+# Baca hasil analisis aksesibilitas dasar (jarak & kerapatan jalan)
+hasil_df = pd.read_csv(HASIL_AKSES_FILE)
 
-# Pastikan kolom kelas_aksesibilitas tersedia
+# Gabungkan dengan hasil evaluasi pemenuhan fasilitas SNI jika tersedia
+final_path = FINAL_FILE if os.path.exists(FINAL_FILE) else os.path.join(BASE_DIR, "output", "indeks_final_evaluasi.csv")
+eval_path = EVALUASI_FILE if os.path.exists(EVALUASI_FILE) else os.path.join(BASE_DIR, "output", "evaluasi_pemenuhan_fasilitas.csv")
+
+if os.path.exists(final_path):
+    final_df = pd.read_csv(final_path)
+    cols_to_merge = [c for c in final_df.columns if c not in hasil_df.columns or c == "GID_3"]
+    hasil_df = hasil_df.merge(final_df[cols_to_merge], on="GID_3", how="left")
+    print("Membaca dan menggabungkan data dari indeks_final_evaluasi.csv")
+elif os.path.exists(eval_path):
+    eval_df = pd.read_csv(eval_path)
+    cols_to_merge = [c for c in eval_df.columns if c not in hasil_df.columns or c == "GID_3"]
+    hasil_df = hasil_df.merge(eval_df[cols_to_merge], on="GID_3", how="left")
+    print("Membaca dan menggabungkan data dari evaluasi_pemenuhan_fasilitas.csv")
+
+# Gabungkan dengan hasil analisis isochrone jika tersedia
+iso_path = os.path.join(BASE_DIR, "..", "output", "cakupan_isochrone_worldpop.csv")
+if os.path.exists(iso_path):
+    iso_df = pd.read_csv(iso_path)
+    cols_to_merge = [c for c in iso_df.columns if c not in hasil_df.columns or c == "GID_3"]
+    hasil_df = hasil_df.merge(iso_df[cols_to_merge], on="GID_3", how="left")
+    print("Membaca dan menggabungkan data dari cakupan_isochrone_worldpop.csv")
+
+# Pastikan kolom kelas_aksesibilitas dan kelas_final tersedia
 if "kelas_final" in hasil_df.columns and "kelas_aksesibilitas" not in hasil_df.columns:
     hasil_df["kelas_aksesibilitas"] = hasil_df["kelas_final"]
 elif "kelas_aksesibilitas" in hasil_df.columns and "kelas_final" not in hasil_df.columns:

@@ -18,7 +18,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_JALAN = os.path.join(BASE_DIR, "..", "output", "jalan_network_fixed.gpkg")
 FILE_SNAP = os.path.join(BASE_DIR, "..", "output", "titik_snap_fixed.gpkg")
 FILE_ADMIN = os.path.join(BASE_DIR, "..", "data", "administrasi.geojson")
-FILE_RASTER = os.path.join(BASE_DIR, "..", "worldpop_semarang.tif")
+FILE_RASTER = os.path.join(BASE_DIR, "..", "data", "worldpop_semarang.tif")
+if not os.path.exists(FILE_RASTER):
+    FILE_RASTER = os.path.join(BASE_DIR, "..", "worldpop_semarang.tif")
 OUTPUT_DIR = os.path.join(BASE_DIR, "..", "output")
 
 # 1. BACA DATA
@@ -239,9 +241,19 @@ for col in kolom_tambah:
 
 gdf_web = gdf_web.merge(df_hasil[["GID_3"] + kolom_tambah], on="GID_3", how="left")
 
+# Pastikan skor_pemenuhan_sni dan atribut evaluasi tersedia
+if "skor_pemenuhan_sni" not in gdf_web.columns:
+    eval_csv = os.path.join(OUTPUT_DIR, "indeks_final_evaluasi.csv")
+    if not os.path.exists(eval_csv):
+        eval_csv = os.path.join(BASE_DIR, "output", "indeks_final_evaluasi.csv")
+    if os.path.exists(eval_csv):
+        df_ev = pd.read_csv(eval_csv)
+        cols_to_merge = [c for c in df_ev.columns if c not in gdf_web.columns or c == "GID_3"]
+        gdf_web = gdf_web.merge(df_ev[cols_to_merge], on="GID_3", how="left")
+
 # Hitung ulang Indeks Final berbasis 50% Pemenuhan SNI + 50% Aksesibilitas Isochrone
 gdf_web["indeks_final"] = (
-    0.50 * gdf_web["skor_pemenuhan_sni"] + 
+    0.50 * gdf_web.get("skor_pemenuhan_sni", 50.0) + 
     0.50 * gdf_web["indeks_isochrone"]
 ).round(2)
 
