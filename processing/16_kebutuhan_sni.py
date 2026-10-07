@@ -18,6 +18,7 @@ FILE_ADMIN = os.path.join(
 
 OUTPUT_DIR = os.path.join(
     BASE_DIR,
+    "..",
     "output"
 )
 
@@ -77,38 +78,42 @@ if admin["Penduduk"].isna().any():
         "Periksa kembali kolom Penduduk sebelum melanjutkan."
     )
 # ============================================================
-# 4. STANDAR SNI 03-1733-2004
+# 4. STANDAR KAPASITAS PELAYANAN FASILITAS
 # ============================================================
 
-# Tabel 6:
-# Kantor polisi        = 1 fasilitas / 120.000 jiwa
-# Pos pemadam kebakaran = 1 fasilitas / 120.000 jiwa
-#
-# Tabel 12:
-# Puskesmas             = 1 fasilitas / 120.000 jiwa
-#
-# Karena unit analisis penelitian adalah KECAMATAN,
-# digunakan fasilitas tingkat kecamatan.
+# Standar pelayanan berdasarkan jumlah penduduk:
+# Rumah Sakit (RS)         = 1 fasilitas / 240.000 jiwa
+# Puskesmas                 = 1 fasilitas / 120.000 jiwa
+# Pos Pemadam Kebakaran     = 1 fasilitas / 90.000 jiwa
+# Kantor Polisi             = 1 fasilitas / 30.000 jiwa
 
-PENDUDUK_PENDUKUNG = 120000
+PENDUDUK_RS = 240000
+PENDUDUK_PUSKESMAS = 120000
+PENDUDUK_DAMKAR = 90000
+PENDUDUK_POLISI = 30000
 
 # ============================================================
 # 5. HITUNG KEBUTUHAN FASILITAS
 # ============================================================
 
-admin["kebutuhan_kantor_polisi"] = (
+admin["kebutuhan_rumah_sakit"] = (
     admin["Penduduk"]
-    .apply(lambda x: math.ceil(x / PENDUDUK_PENDUKUNG))
-)
-
-admin["kebutuhan_pos_damkar"] = (
-    admin["Penduduk"]
-    .apply(lambda x: math.ceil(x / PENDUDUK_PENDUKUNG))
+    .apply(lambda x: math.ceil(x / PENDUDUK_RS))
 )
 
 admin["kebutuhan_puskesmas"] = (
     admin["Penduduk"]
-    .apply(lambda x: math.ceil(x / PENDUDUK_PENDUKUNG))
+    .apply(lambda x: math.ceil(x / PENDUDUK_PUSKESMAS))
+)
+
+admin["kebutuhan_pos_damkar"] = (
+    admin["Penduduk"]
+    .apply(lambda x: math.ceil(x / PENDUDUK_DAMKAR))
+)
+
+admin["kebutuhan_kantor_polisi"] = (
+    admin["Penduduk"]
+    .apply(lambda x: math.ceil(x / PENDUDUK_POLISI))
 )
 
 # ============================================================
@@ -120,9 +125,10 @@ hasil = admin[
         "GID_3",
         "NAME_3",
         "Penduduk",
-        "kebutuhan_kantor_polisi",
+        "kebutuhan_rumah_sakit",
+        "kebutuhan_puskesmas",
         "kebutuhan_pos_damkar",
-        "kebutuhan_puskesmas"
+        "kebutuhan_kantor_polisi"
     ]
 ].copy()
 

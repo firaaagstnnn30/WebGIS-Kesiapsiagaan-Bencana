@@ -9,6 +9,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 FILE_PEMENUHAN = os.path.join(
     BASE_DIR,
+    "..",
     "output",
     "evaluasi_pemenuhan_fasilitas.csv"
 )
@@ -22,6 +23,7 @@ FILE_AKSES = os.path.join(
 
 OUTPUT_DIR = os.path.join(
     BASE_DIR,
+    "..",
     "output"
 )
 
@@ -53,7 +55,8 @@ kolom_pemenuhan = [
     "NAME_3",
     "pemenuhan_damkar_persen",
     "pemenuhan_polisi_persen",
-    "pemenuhan_puskesmas_persen"
+    "pemenuhan_puskesmas_persen",
+    "pemenuhan_rs_persen"
 ]
 
 for kolom in kolom_pemenuhan:
@@ -79,23 +82,20 @@ if "indeks_aksesibilitas" not in akses.columns:
 # 4. BATASI PEMENUHAN MAKSIMUM 100%
 # ============================================================
 
-# Tujuan:
-# fasilitas yang jumlahnya melebihi kebutuhan tidak mendapatkan
-# nilai >100% sehingga tidak menutupi kekurangan fasilitas lain.
-
 pemenuhan["skor_damkar_sni"] = (
-    pemenuhan["pemenuhan_damkar_persen"]
-    .clip(upper=100)
+    pemenuhan["pemenuhan_damkar_persen"].clip(upper=100)
 )
 
 pemenuhan["skor_polisi_sni"] = (
-    pemenuhan["pemenuhan_polisi_persen"]
-    .clip(upper=100)
+    pemenuhan["pemenuhan_polisi_persen"].clip(upper=100)
 )
 
 pemenuhan["skor_puskesmas_sni"] = (
-    pemenuhan["pemenuhan_puskesmas_persen"]
-    .clip(upper=100)
+    pemenuhan["pemenuhan_puskesmas_persen"].clip(upper=100)
+)
+
+pemenuhan["skor_rs_sni"] = (
+    pemenuhan["pemenuhan_rs_persen"].clip(upper=100)
 )
 
 
@@ -108,7 +108,8 @@ pemenuhan["skor_pemenuhan_sni"] = (
         [
             "skor_damkar_sni",
             "skor_polisi_sni",
-            "skor_puskesmas_sni"
+            "skor_puskesmas_sni",
+            "skor_rs_sni"
         ]
     ]
     .mean(axis=1)
