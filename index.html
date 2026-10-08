@@ -248,45 +248,83 @@
                         <strong>Layer Peta</strong>
                     </div>
 
-
                     <label>
                         <input type="checkbox" id="toggle-admin" checked>
                         Batas Kecamatan
                     </label>
-
 
                     <label>
                         <input type="checkbox" id="toggle-index" checked>
                         Indeks Aksesibilitas
                     </label>
 
+                    <div class="layer-group-title">Mode Indeks Tematik</div>
+
+                    <label class="layer-radio-label">
+                        <input type="radio" name="mode-indeks" id="mode-gabungan" checked>
+                        Indeks Gabungan (Final)
+                    </label>
+
+                    <label class="layer-radio-label">
+                        <input type="radio" name="mode-indeks" id="mode-isochrone">
+                        Aksesibilitas Isochrone
+                    </label>
+
+                    <label class="layer-radio-label">
+                        <input type="radio" name="mode-indeks" id="mode-pemenuhan">
+                        Pemenuhan Standar SNI
+                    </label>
+
+                    <div class="layer-group-title">Fasilitas</div>
 
                     <label>
                         <input type="checkbox" id="toggle-rs" checked>
                         🏥 Rumah Sakit
                     </label>
 
-
                     <label>
                         <input type="checkbox" id="toggle-puskesmas" checked>
                         🏥 Puskesmas
                     </label>
-
 
                     <label>
                         <input type="checkbox" id="toggle-damkar" checked>
                         🚒 Pemadam Kebakaran
                     </label>
 
-
                     <label>
                         <input type="checkbox" id="toggle-polisi" checked>
                         👮 Kantor Polisi
                     </label>
 
+                    <div class="layer-group-title">Area Jangkauan</div>
 
                     <label>
-                        <input type="checkbox" id="toggle-jalan">
+                        <input type="checkbox" id="toggle-iso-damkar">
+                        <span style="display:inline-block; width:11px; height:11px; background:#ef4444; border-radius:2px; vertical-align:middle; margin-right:4px;"></span>
+                        Damkar (15 menit)
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="toggle-iso-polisi">
+                        <span style="display:inline-block; width:11px; height:11px; background:#3b82f6; border-radius:2px; vertical-align:middle; margin-right:4px;"></span>
+                        Polisi (15 menit)
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="toggle-iso-puskesmas">
+                        <span style="display:inline-block; width:11px; height:11px; background:#10b981; border-radius:2px; vertical-align:middle; margin-right:4px;"></span>
+                        Puskesmas (15 menit)
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="toggle-iso-rs">
+                        <span style="display:inline-block; width:11px; height:11px; background:#8b5cf6; border-radius:2px; vertical-align:middle; margin-right:4px;"></span>
+                        RS (30 menit)
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="toggle-jalan" checked>
                         Jaringan Jalan
                     </label>
 
@@ -337,7 +375,7 @@
 
                     <div class="legend-section">
 
-                        <strong>Indeks Aksesibilitas</strong>
+                        <strong id="legend-indeks-label">Indeks Aksesibilitas</strong>
 
                         <div class="legend-item">
                             <i class="legend-color tinggi"></i>
@@ -474,6 +512,56 @@
                 <div class="summary-row">
                     <span>Kategori Rendah</span>
                     <strong id="total-rendah">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- TABEL DATA ATRIBUT -->
+        <!-- ================================= -->
+
+        <section class="table-section">
+
+            <div class="table-card">
+
+                <div class="table-header">
+                    <h3>
+                        <span>📊</span>
+                        Matriks Evaluasi & Aksesibilitas Fasilitas Darurat per Kecamatan
+                    </h3>
+                </div>
+
+                <div class="table-container">
+
+                    <table class="data-table">
+
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kecamatan</th>
+                                <th>Penduduk (BPS)</th>
+                                <th>WorldPop</th>
+                                <th>Indeks Final</th>
+                                <th>Pemenuhan SNI</th>
+                                <th>Akses Isochrone</th>
+                                <th>Rank</th>
+                                <th>Status Kuota</th>
+                                <th>Rincian Evaluasi</th>
+                                <th>RS (Eks/Bth)</th>
+                                <th>Puskesmas (Eks/Bth)</th>
+                                <th>Damkar (Eks/Bth)</th>
+                                <th>Polisi (Eks/Bth)</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tabel-body">
+                        </tbody>
+
+                    </table>
+
                 </div>
 
             </div>

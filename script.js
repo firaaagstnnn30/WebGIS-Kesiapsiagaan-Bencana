@@ -34,7 +34,7 @@ osm.addTo(map);
 // ========================================
 
 var layerAdmin = L.layerGroup().addTo(map);
-var layerJalan = L.layerGroup();
+var layerJalan = L.layerGroup().addTo(map);
 
 var layerDamkar = L.layerGroup().addTo(map);
 var layerPuskesmas = L.layerGroup().addTo(map);
@@ -446,7 +446,12 @@ fetch('output/kecamatan_aksesibilitas.geojson')
         function setupIsoToggle(id, layer) {
             var el = document.getElementById(id);
             if (el) {
+                if (localStorage.getItem('webgis_' + id) !== null) {
+                    el.checked = localStorage.getItem('webgis_' + id) === 'true';
+                }
+                if (el.checked) map.addLayer(layer);
                 el.addEventListener('change', function() {
+                    localStorage.setItem('webgis_' + id, this.checked);
                     if (this.checked) map.addLayer(layer);
                     else map.removeLayer(layer);
                 });
@@ -851,26 +856,25 @@ document.getElementById(
 
 
 
-document.getElementById(
-    'toggle-jalan'
-).addEventListener(
-    'change',
-    function() {
-
-        if (this.checked) {
-
-            map.addLayer(layerJalan);
-
-        }
-
-        else {
-
-            map.removeLayer(layerJalan);
-
-        }
-
+var toggleJalan = document.getElementById('toggle-jalan');
+if (toggleJalan) {
+    if (localStorage.getItem('webgis_toggle_jalan') !== null) {
+        toggleJalan.checked = localStorage.getItem('webgis_toggle_jalan') === 'true';
     }
-);
+    if (toggleJalan.checked) {
+        map.addLayer(layerJalan);
+    } else {
+        map.removeLayer(layerJalan);
+    }
+    toggleJalan.addEventListener('change', function() {
+        localStorage.setItem('webgis_toggle_jalan', this.checked);
+        if (this.checked) {
+            map.addLayer(layerJalan);
+        } else {
+            map.removeLayer(layerJalan);
+        }
+    });
+}
 
 
 document.getElementById(
