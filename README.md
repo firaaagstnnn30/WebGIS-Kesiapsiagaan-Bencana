@@ -29,6 +29,34 @@ WebGIS ini dibuat untuk membantu:
 - menyajikan hasil analisis dalam bentuk peta interaktif.
 
 ---
+
+## Fitur WebGIS
+
+WebGIS Kesiapsiagaan Bencana Kota Semarang menyediakan beberapa fitur utama untuk membantu visualisasi dan evaluasi kesiapsiagaan fasilitas darurat, yaitu:
+
+- **Peta Interaktif**  
+  Menampilkan peta Kota Semarang beserta batas administrasi dan persebaran fasilitas darurat.
+
+- **Persebaran Fasilitas Darurat**  
+  Menampilkan lokasi Rumah Sakit, Puskesmas, Pemadam Kebakaran, dan Kantor Polisi.
+
+- **Analisis Pemenuhan Fasilitas**  
+  Menampilkan perbandingan antara jumlah fasilitas yang tersedia dengan kebutuhan berdasarkan standar SNI 03-1733-2004.
+
+- **Analisis Aksesibilitas**  
+  Menampilkan informasi tingkat aksesibilitas fasilitas berdasarkan jaringan jalan dan waktu tempuh.
+
+- **Analisis Isochrone**  
+  Menampilkan area yang dapat dijangkau fasilitas darurat berdasarkan batas waktu tanggap tertentu.
+
+- **Indeks Kesiapsiagaan**  
+  Menampilkan hasil indeks kesiapsiagaan pada masing-masing kecamatan di Kota Semarang.
+
+- **Informasi Kecamatan**  
+  Menampilkan informasi hasil analisis pada setiap wilayah kecamatan.
+
+---
+
 ## Data yang Digunakan
 
 Data yang digunakan dalam pengembangan WebGIS meliputi data spasial dan data atribut yang berkaitan dengan fasilitas darurat dan kondisi wilayah Kota Semarang.
@@ -49,7 +77,39 @@ Data tersebut digunakan sebagai dasar dalam proses analisis dan visualisasi pada
 
 ---
 
-## Cara Menjalankan Project
+## Teknologi yang Digunakan
+
+Pengembangan WebGIS menggunakan beberapa teknologi dan perangkat lunak, antara lain:
+
+- **HTML** — membangun struktur halaman WebGIS.
+- **CSS** — mengatur tampilan dan antarmuka aplikasi.
+- **JavaScript** — mengatur interaksi, visualisasi, dan fungsi analisis pada WebGIS.
+- **Python** — digunakan untuk pengolahan dan analisis data spasial.
+- **GeoJSON** — digunakan sebagai format data spasial untuk visualisasi pada WebGIS.
+- **Visual Studio Code** — digunakan sebagai lingkungan pengembangan aplikasi.
+- **Git dan GitHub** — digunakan untuk pengelolaan dan penyimpanan source code.
+
+---
+
+## Struktur Project
+
+Struktur folder dan file utama pada project adalah sebagai berikut:
+
+```text
+WebGIS-Kesiapsiagaan-Bencana/
+├── backend/        # Komponen backend aplikasi
+├── data/           # Data spasial dan data pendukung
+├── output/         # Hasil pengolahan dan analisis
+├── processing/     # Script Python untuk pengolahan data
+├── index.html      # Halaman utama WebGIS
+├── script.js       # Script JavaScript aplikasi
+├── style.css       # Pengaturan tampilan WebGIS
+└── README.md       # Dokumentasi project
+```
+
+---
+
+## Cara Menjalankan Project 
 
 Pilih salah satu cara mendapatkan kode project di bawah ini:
 
@@ -159,6 +219,58 @@ Tahap akhir adalah menampilkan hasil pengolahan dalam WebGIS. Pengguna dapat mel
 
 ---
 
+## Reproduksi Analisis
+
+Analisis pada WebGIS dapat dilakukan kembali menggunakan script yang terdapat pada folder `processing/`.
+
+Secara umum, tahapan pengolahan dilakukan sebagai berikut:
+
+### 1. Pengecekan dan Persiapan Data
+
+Data spasial dan data atribut diperiksa untuk memastikan kelengkapan dan kesesuaiannya sebelum digunakan dalam analisis.
+
+### 2. Pengolahan Jaringan Jalan
+
+Jaringan jalan diproses untuk membentuk jaringan yang dapat digunakan dalam analisis aksesibilitas dan perhitungan jalur.
+
+### 3. Pembentukan Network
+
+Jaringan jalan dibentuk menjadi struktur jaringan yang dapat digunakan untuk menghitung hubungan antarsegmen jalan dan titik fasilitas.
+
+### 4. Penyesuaian Titik Fasilitas
+
+Lokasi fasilitas disesuaikan terhadap jaringan jalan sehingga dapat digunakan dalam analisis jalur dan waktu tempuh.
+
+### 5. Analisis Jalur Terpendek
+
+Analisis jalur digunakan untuk memperoleh jarak atau waktu tempuh dari fasilitas menuju wilayah yang dianalisis.
+
+### 6. Normalisasi dan Klasifikasi
+
+Nilai hasil analisis aksesibilitas dinormalisasi dan diklasifikasikan untuk menghasilkan informasi tingkat aksesibilitas.
+
+### 7. Analisis Kebutuhan Fasilitas
+
+Kebutuhan Rumah Sakit, Puskesmas, Pemadam Kebakaran, dan Kantor Polisi dihitung berdasarkan standar SNI 03-1733-2004.
+
+### 8. Evaluasi Fasilitas
+
+Jumlah fasilitas eksisting dibandingkan dengan kebutuhan fasilitas pada masing-masing kecamatan.
+
+### 9. Analisis Isochrone
+
+Jangkauan fasilitas berdasarkan waktu tanggap dihitung untuk mengetahui wilayah yang dapat dijangkau dalam batas waktu tertentu.
+
+### 10. Perhitungan Indeks Kesiapsiagaan
+
+Hasil evaluasi fasilitas dan aksesibilitas digunakan untuk menghasilkan indeks kesiapsiagaan setiap kecamatan.
+
+### 11. Penggabungan Hasil
+
+Hasil analisis digabungkan dengan data spasial untuk menghasilkan data akhir yang digunakan dalam WebGIS.
+
+---
+
 ## Menjalankan Script Pengolahan Data (Opsional)
 
 Folder `processing/` berisi script Python untuk pemodelan GIS dan analisis spasial. Bagian ini hanya perlu dijalankan apabila Anda ingin mengolah ulang data mentah:
@@ -182,3 +294,19 @@ python3 processing/18_indeks_final.py
 # 4. Penggabungan atribut ke GeoJSON akhir untuk WebGIS
 python3 processing/15_gabung_hasil.py
 ```
+
+---
+
+## Hasil yang Dihasilkan
+
+Hasil pengolahan dan analisis pada project ini meliputi:
+
+- data spasial fasilitas darurat;
+- informasi pemenuhan fasilitas berdasarkan standar SNI;
+- nilai dan klasifikasi aksesibilitas;
+- hasil analisis kepadatan jaringan jalan;
+- area jangkauan fasilitas berdasarkan waktu tanggap;
+- indeks kesiapsiagaan setiap kecamatan; dan
+- data spasial akhir yang digunakan untuk visualisasi pada WebGIS.
+
+Hasil tersebut divisualisasikan dalam bentuk peta interaktif sehingga pengguna dapat melihat kondisi kesiapsiagaan fasilitas darurat pada masing-masing wilayah kecamatan di Kota Semarang.
