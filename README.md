@@ -310,3 +310,9 @@ Hasil pengolahan dan analisis pada project ini meliputi:
 - data spasial akhir yang digunakan untuk visualisasi pada WebGIS.
 
 Hasil tersebut divisualisasikan dalam bentuk peta interaktif sehingga pengguna dapat melihat kondisi kesiapsiagaan fasilitas darurat pada masing-masing wilayah kecamatan di Kota Semarang.
+
+## Demo WebGIS
+
+WebGIS dapat diakses secara online melalui:
+
+https://webgis-kesiapsiagaan-bencana.vercel.app
